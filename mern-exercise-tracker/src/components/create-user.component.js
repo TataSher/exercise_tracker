@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class ExercisesList extends Component {
+export default class CreateUser extends Component {
   render() {
     return (
       <div>
-        <p>Exercises List Component!</p>
+        <p>Create User Component!</p>
       </div>
     )
   }
