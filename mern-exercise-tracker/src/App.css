@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar-brand {
+  padding-left:30px;
+}
+
+.form-group {
+  padding-top:15px;
+}
