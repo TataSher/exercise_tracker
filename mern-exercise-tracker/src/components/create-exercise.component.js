@@ -74,13 +74,6 @@ export default class CreateExercise extends Component {
 
         axios.post('http://localhost:5000/exercises/add', exercise)
          .then(res => console.log(res.data));
-
-      // this.setState({
-      //   username:'',
-      //   description:'',
-      //   duration:'',
-      //   date:'date'
-      // })
   }
 
   render() {
