@@ -3,8 +3,6 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 
-// Can refactor in the future to have a single component and use the differences in props
-// to how its going to display
 export default class EditExercise extends Component {
   constructor(props) {
     super(props);
@@ -28,8 +26,8 @@ export default class EditExercise extends Component {
     axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
       .then(response => {
         this.setState({
-          username: response.data.username;
-          description: response.data.description;
+          username: response.data.username,
+          description: response.data.description,
           duration: response.data.duration,
           date: new Date(response.data.date)
         })
@@ -84,15 +82,15 @@ export default class EditExercise extends Component {
       console.log(exercise);
 
       window.location = '/';
-
-        axios.post('http://localhost:5000/exercises/add', exercise)
+// change the url and pass the id
+        axios.post('http://localhost:5000/exercises/update/'+this.props.match.params.id, exercise)
          .then(res => console.log(res.data));
   }
 
   render() {
     return (
       <div>
-        <h3>Create New Exercise Log</h3>
+        <h3>Edit Exercise</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Username</label>
@@ -141,7 +139,7 @@ export default class EditExercise extends Component {
         </div>
 
         <div className="form-group">
-          <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+          <input type="submit" value="Edit Exercise" className="btn btn-primary" />
         </div>
       </form>
     </div>

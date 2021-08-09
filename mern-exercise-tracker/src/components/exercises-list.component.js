@@ -9,25 +9,22 @@ const Exercise = props => (
     <td>{props.exercise.duration}</td>
     <td>{props.exercise.date.substring(0, 10)}</td>
     <td>
-      <Link to={"/edit/"+props.exercise._id}>Edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props._id)}}>delete</a>
+      <Link to={"/edit/"+props.exercise._id}>Edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>Delete</a>
     </td>
   </tr>
 )
 
 export default class ExercisesList extends Component {
+  constructor(props) {
+    super(props);
 
-constructor(props) {
-  super(props);
-
-  this.deleteExercise = this.deleteExercise.bind(this);
-  this.state = {exercises: []};
-
+    this.deleteExercise = this.deleteExercise.bind(this);
+    this.state = {exercises: []};
 }
 
 componentDidMount() {
   axios.get('http://localhost:5000/exercises/')
     .then(response => {
-
       this.setState({ exercises: response.data})
     })
     .catch((error) => {
@@ -38,22 +35,19 @@ componentDidMount() {
   deleteExercise(id) {
     axios.delete('http://localhost:5000/exercises/'+id)
       .then(res => console.log(res.data));
-    this.state({
+
+    this.setState({
       exercises: this.state.exercises.filter(el => el._id !== id)
     })
   }
 
 exerciseList() {
   return this.state.exercises.map(currentexercise => {
-    // return the new component
-    // where we pass props with the current exercise, deleteExercise method,
-    // and the key with the exercise id
-    return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise.id}/>;
+    return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id}/>;
   })
 }
 
   render() {
-    // let's create the jsx that will be displayed
     return(
       <div>
         <h3>Exercises</h3>
